@@ -10,7 +10,7 @@ def databaser(message: Message = "", id='', id_data="", returner: bool = False) 
         else:
             id = str(message.from_user.id)
             if id not in rt:
-                rt[id] = rt.setdefault(id, {"message": [],
+                rt[id] = rt.setdefault(id, {"message": [],'administration': False,
                                             "games": {'tries': 7, 'all games': 0, "in_game": False, "wins": 0,
                                                       "loses": 0}})
             rt[str(id)]["message"].append(message.text)

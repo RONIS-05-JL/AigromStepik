@@ -22,6 +22,8 @@ async def process_help_command(message: Message):
     await message.answer("Напиши мне что нибудь и в ответ я пришлю тебе твое сообщение ")
 
 
+
+
 @dp.message()
 async def send_echo(message: Message):
     idd, data = Data.databaser(message, returner=True)
@@ -40,6 +42,7 @@ async def send_echo(message: Message):
                 text='Данный тип апдейтов не поддерживается '
                      'методом send_copy'
             )
+
 
 
 if __name__ == '__main__':
