@@ -1,7 +1,7 @@
 from aiogram import Dispatcher,Bot
 from aiogram.filters import Command
 from aiogram.types import Message
-from config1 import config_loader
+from Modular_bot.Configurations.config1 import config_loader
 from Modular_bot.games import Change_number
 from Modular_bot.Databse import Data
 
