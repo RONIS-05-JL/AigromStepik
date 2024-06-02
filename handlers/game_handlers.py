@@ -6,7 +6,7 @@ from Database.Data import databaser
 from aiogram.filters import Filter, Command
 from aiogram.types import (KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton, Message,
                            ReplyKeyboardRemove, ReplyKeyboardMarkup)
-from keybords.inline import web_app_keyboard, mini_game_keybords
+from keybords.under_keybords import web_app_keyboard, mini_game_keybords
 
 router = Router()
 
@@ -18,17 +18,27 @@ async def mini_games(message: Message):
 
 @router.message(lambda message: message.text in ['rock'] + rock.list_items)
 async def rock_games(message: Message):
-    ans = rock.rock_game(message)
+    ans ,flag= rock.rock_game(message)
+    if not flag:
+        await message.answer(text=ans, reply_markup=ReplyKeyboardRemove())
 
-    await message.answer(text=ans, reply_markup = rock.rock_btn.as_markup(resize_keyboard=True))
+    else:
+        await message.answer(text=ans, reply_markup=rock.rock_btn.as_markup(resize_keyboard=True))
 
-@router.message(F.text == 'change_number')
-async def change_number(message: Message):
-    idd, data = databaser(message, returner=True)
 
-    ans = Change_number.numbers(data['games'], answer=message.text)
-    databaser(id=id, id_data=data)
-    await message.answer(ans)
+@router.message(Command(commands='games_stats'))
+async def games_stats(message: Message):
+    ans=databaser(message, returner=True)[1]['games']
+    for game,stats in ans.items():
+        await message.answer(f'Ваша статистика в игре  {game}\n'+
+                             '\n'.join(f'{key} : {stats[key]}' for key in ['all_games','wins','loses']))
+
+# @router.message(lambda message: message.text == 'change_number' or
+#                                 databaser(message, returner=True)[1]['games']['change_number']['in_game'])
+# async def change_number(message: Message):
+#
+#     await message.answer(ans)
+
 
 @router.message()
 async def send_echo(message: Message):

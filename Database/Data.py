@@ -14,14 +14,8 @@ def databaser(message: Message|str = "", id='', id_data="", returner: bool = Fal
             id = str(message.from_user.id)
             if id not in user_field:
                 user_field[id] = user_field.setdefault(id, {"message": [],'administration': False,
-                                            "games": {'change_number':{'tries': 8, 'all games': 0, "in_game": False,
-                                            "wins": 0,"loses": 0},'rock':{'points':0,'bot_points':0,
-                                                                          'tries': 10, 'all games': 0, "in_game":False}}
-                                            })
-        # if 'rock' not in user_field[str(message.from_user.id)]['games'].keys():
-        #     user_field[str(message.from_user.id)]['games']['rock'] = {'points':0,'bot_points':0,'tries': 10,
-        #                                                             'all games': 0,
-        #                                              "in_game":False}
+        "games": {'change_number':{'tries': 8, 'all_games': 0, "in_game": False,"wins": 0,"loses": 0},
+        'rock' : {'points' : 0 ,'bot_points': 0, 'tries': 10, 'all_games': 0,'wins': 0,"loses": 0,"in_game":False}}})
         user_field[str(message.from_user.id)]["message"].append(message.text)
     if returner:
         return id, user_field[id]

@@ -2,18 +2,19 @@ from aiogram import Dispatcher, Bot
 from Configurations.config1 import config_loader
 from handlers import game_handlers, user_handlers
 import asyncio
-
+from keybords.menu_commands import set_main_menu
 from Database.Data import databaser
 
 
 config = config_loader('.env')
 
 
+
 async def main() -> None:
     bot = Bot(token=config.tg_bot.token)
     superadmin = config.tg_bot.admin_ids[0]
     dp = Dispatcher()
-
+    dp.startup.register(set_main_menu)
     dp.include_router(user_handlers.router)
     dp.include_router(game_handlers.router)
 

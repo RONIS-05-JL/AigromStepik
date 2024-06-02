@@ -1,10 +1,10 @@
 from aiogram import Router, F
 from aiogram.filters import Command, CommandStart, KICKED, ChatMemberUpdatedFilter
 from lexicon.text_patterns import LexRU, inline_text,inline_add_text
-from keybords.inline import keybord_under, kb_builder, mech_kb, special_keyboard
+from keybords.under_keybords import keybord_under, kb_builder, mech_kb, special_keyboard
 from aiogram.types import (ReplyKeyboardRemove, Message, ChatMemberUpdated, FSInputFile)
 from Database.Data import databaser
-from keybords.inline import web_app_keyboard
+from keybords.under_keybords import web_app_keyboard
 
 router = Router()
 
@@ -27,14 +27,14 @@ async def process_help_command(message: Message):
     await message.answer(LexRU['help'])
 
 
-@router.message(Command(commands='available_instructions'))
+@router.message(Command(commands='open_list_of_instruction'))
 async def process_game_command(message: Message):
     databaser(message)
     await message.answer(text='Вот список доступных инструкций и услуг',
                          reply_markup=kb_builder.as_markup(resize_keyboard=True))
 
 
-@router.message(Command(commands='web_app'))
+@router.message(Command(commands='web_apps'))
 async def process_web_app__command(message: Message):
     await message.answer(text='Testing web app features', reply_markup=web_app_keyboard)
 
