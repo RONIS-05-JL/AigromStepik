@@ -2,11 +2,8 @@ LexRU = {'start': "Привет {}", 'help': '"Напиши мне что ниб
 
 new_commands = ['/start', '/help', '/available_instructions']
 
-inline_text: dict = {0: 'JCB', 1: 'Scania', 2: 'LOVOL', 3: 'Jhon Deer',
-                     4: 'KUBOTO', 5: 'TEREX', 6: 'Автомеханики на час'}
+inline_text: list = ['JCB', 'Scania', 'LOVOL', 'Jhon Deer', 'KUBOTO', 'TEREX', 'Автомеханики на час']
 
-inline_add_text: dict = {0: 'VOLVO', 1: 'DAF', 2: 'IVECO'}
+inline_add_text: list = ['VOLVO', 'DAF', 'IVECO']
 
-
-
-mech={0:'Artur',1:'Salavat'}
+mech = ['Artur', 'Salavat', 'Vladimir', 'Prokofiy', 'Svetogor',]

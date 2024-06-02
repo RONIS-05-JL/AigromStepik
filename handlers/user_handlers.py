@@ -1,9 +1,10 @@
 from aiogram import Router, F
 from aiogram.filters import Command, CommandStart, KICKED, ChatMemberUpdatedFilter
-from lexicon.text_patterns import LexRU, inline_text
+from lexicon.text_patterns import LexRU, inline_text,inline_add_text
 from keybords.inline import keybord_under, kb_builder, mech_kb, special_keyboard
-from aiogram.types import (ReplyKeyboardRemove, Message, ChatMemberUpdated, ContentType, FSInputFile)
+from aiogram.types import (ReplyKeyboardRemove, Message, ChatMemberUpdated, FSInputFile)
 from Database.Data import databaser
+from keybords.inline import web_app_keyboard
 
 router = Router()
 
@@ -33,13 +34,17 @@ async def process_game_command(message: Message):
                          reply_markup=kb_builder.as_markup(resize_keyboard=True))
 
 
-@router.message(lambda message: message.text not in inline_text)
+@router.message(Command(commands='web_app'))
+async def process_web_app__command(message: Message):
+    await message.answer(text='Testing web app features', reply_markup=web_app_keyboard)
+
+
+@router.message(lambda message: message.text in inline_text+inline_add_text)
 async def for_selecotor_answer(message: Message):
     databaser(message)
     if message.text == 'Автомеханики на час':
         await message.answer_photo(photo=FSInputFile('Database/20191201_004844(0).jpg')
-                                   ,
-                                   reply_markup=ReplyKeyboardRemove())
+                                   ,reply_markup=ReplyKeyboardRemove())
         await message.answer(text='Вот доступные слесари ,кого из них хотите?', reply_markup=mech_kb.as_markup(
             resize_keyboard=True))
     else:
