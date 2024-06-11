@@ -3,9 +3,13 @@ from Configurations.config1 import config_loader
 from handlers import game_handlers, user_handlers
 import asyncio
 from keybords.menu_commands import set_main_menu
-from Database.Data import databaser
+import logging
+from middlewares.inner_middlewares  import *
+from middlewares.outer_middlewares import *
 
 
+logging.basicConfig(level=logging.DEBUG,format='[%(asctime)s] #%(levelname) -8s%(filename)s:%(lineno)s:%(message)s')
+logger=logging.getLogger(__name__)
 config = config_loader('.env')
 
 
@@ -17,6 +21,7 @@ async def main() -> None:
     dp.startup.register(set_main_menu)
     dp.include_router(user_handlers.router)
     dp.include_router(game_handlers.router)
+    dp.update.outer_middleware(FirstOuterMiddleware())
 
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

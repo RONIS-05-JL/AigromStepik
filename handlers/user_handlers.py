@@ -27,7 +27,7 @@ async def process_help_command(message: Message):
     await message.answer(LexRU['help'])
 
 
-@router.message(Command(commands='open_list_of_instruction'))
+@router.message(Command(commands='open_list_of_instructions'))
 async def process_game_command(message: Message):
     databaser(message)
     await message.answer(text='Вот список доступных инструкций и услуг',
