@@ -22,9 +22,7 @@ def rock_game(message: Message) -> tuple[str, Any] | tuple[tuple[str, Any], Any]
     if user_answer == list_items[0]:
         data['games']['rock']['in_game'] = True
         result = 'Игра будет состоять из 10 раундов.\nВыбирайте', data['games']['rock']['in_game']
-
     bot_answer = choice(list_items[1:])
-    print(bot_answer)
     if user_answer == bot_answer:
         result = f'{bot_answer}\nНичья\nСчет {user}:{bot}\nОсталось попыток {tries}', data['games']['rock']['in_game']
     elif [user_answer, bot_answer] in vars_lose:
